@@ -1,0 +1,20 @@
+<div class="flex items-center mt-10 mb-10 gap-5">
+    <button matButton="filled" [matMenuTriggerFor]="menuUsers">User routes</button>
+    <mat-menu #menuUsers="matMenu">
+        <button mat-menu-item (click)="onCreateUserClick()">Add user</button>
+        <button mat-menu-item (click)="onGetUserClick()">Get user</button>
+        <button mat-menu-item (click)="onGetAllUsersClick()">Get all users </button>
+        <button mat-menu-item (click)="onUpdateUserClick()">Update user</button>
+        <button mat-menu-item (click)="onDeleteUserClick()">Delete user</button>
+    </mat-menu>
+    <button matButton="filled" [matMenuTriggerFor]="menuTasks">Task routes</button>
+    <mat-menu #menuTasks="matMenu">
+        <button mat-menu-item (click)="onCreateTaskClick()">Add task</button>
+        <button mat-menu-item (click)="onGetTaskClick()">Get task</button>
+        <button mat-menu-item (click)="onGetAllTasksClick()">Get all tasks</button>
+        <button mat-menu-item (click)="onGetAssignedTasksClick()">Get assigned tasks</button>
+        <button mat-menu-item (click)="onUpdateTaskClick()">Update task</button>
+        <button mat-menu-item (click)="onDeleteTaskClick()">Delete task</button>
+        <button mat-menu-item (click)="onAssignTaskClick()">Assign task</button>
+    </mat-menu>
+</div>

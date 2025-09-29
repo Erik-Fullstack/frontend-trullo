@@ -1,0 +1,112 @@
+@if (singleUser && "name" in singleUser) {
+<div class="bg-white shadow rounded p-6 max-w-md mx-auto my-6">
+    <p class="text-lg font-semibold mb-2">
+        ID: <span class="font-normal">{{ singleUser.id }}</span>
+    </p>
+    <p class="text-lg font-semibold mb-2">
+        Name: <span class="font-normal">{{ singleUser.name }}</span>
+    </p>
+    <p class="text-lg font-semibold">
+        Email: <span class="font-normal">{{ singleUser.email }}</span>
+    </p>
+    <p class="text-base font-semibold">
+        Role: <span class="font-normal">{{ singleUser.role }}</span>
+    </p>
+    @if ($any(singleUser).tasks) {
+    <p class="text-base font-semibold">
+        Tasks:
+        <span class="font-normal">{{ $any(singleUser).tasks.length }} tasks</span>
+    </p>
+    }
+</div>
+} @else if (singleUser && "title" in singleUser) {
+<div class="bg-white shadow rounded p-6 max-w-md mx-auto my-6">
+    <p class="text-lg font-semibold mb-2">
+        ID: <span class="font-normal">{{ singleUser.id }}</span>
+    </p>
+    <p class="text-lg font-semibold mb-2">
+        Title: <span class="font-normal">{{ singleUser.title }}</span>
+    </p>
+    <p class="text-lg font-semibold">
+        Description: <span class="font-normal">{{ singleUser.description }}</span>
+    </p>
+    <p class="text-base font-semibold">
+        Status: <span class="font-normal">{{ singleUser.status }}</span>
+    </p>
+    <p class="text-base font-semibold">
+        Assigned To:
+        <span class="font-normal">
+            {{ $any(singleUser).user?.name || $any(singleUser).assignedTo || 'Unassigned' }}
+        </span>
+    </p>
+    @if ($any(singleUser).finishedAt) {
+    <p class="text-base font-semibold">
+        Finished At: <span class="font-normal">{{ $any(singleUser).finishedAt | date:'short' }}</span>
+    </p>
+    }
+</div>
+} @else if (multipleUsers) {
+@if (multipleUsers.length === 0) {
+<h3 class="text-3xl text-center mb-3">No users in DB</h3>
+} @else if (multipleUsers[0] && 'email' in multipleUsers[0]) {
+<!-- Users list -->
+<ul
+    class="flex flex-col bg-white shadow rounded p-6 max-w-xl mx-auto my-6 space-y-4 lg:flex lg:max-w-5xl lg:space-y-0 lg:space-x-2 lg:flex-row lg:flex-wrap lg:justify-center">
+    @for (user of multipleUsers; track $any(user).id) {
+    <li class="border-b last:border-b-0 pb-4 last:pb-0 lg:border-1 lg:p-5 lg:last:border-b lg:mb-2 lg:min-w-40">
+        <p class="text-base font-semibold">
+            ID: <span class="font-normal">{{ $any(user).id }}</span>
+        </p>
+        <p class="text-base font-semibold">
+            Name: <span class="font-normal">{{ $any(user).name }}</span>
+        </p>
+        <p class="text-base font-semibold">
+            Email: <span class="font-normal">{{ $any(user).email }}</span>
+        </p>
+        <p class="text-base font-semibold">
+            Role: <span class="font-normal">{{ $any(user).role }}</span>
+        </p>
+        @if ($any(user).tasks) {
+        <p class="text-base font-semibold">
+            Tasks:
+            <span class="font-normal">{{ $any(user).tasks.length }} tasks</span>
+        </p>
+        }
+    </li>
+    }
+</ul>
+} @else {
+<!-- Tasks list -->
+<ul
+    class="flex flex-col bg-white shadow rounded p-6 max-w-xl mx-auto my-6 space-y-4 lg:flex lg:max-w-5xl lg:space-y-0 lg:space-x-2 lg:flex-row lg:flex-wrap lg:justify-center">
+    @for (task of multipleUsers; track $any(task).id) {
+    <li class="border-b last:border-b-0 pb-4 last:pb-0 lg:border-1 lg:p-5 lg:last:border-b lg:mb-2 lg:min-w-40">
+        <p class="text-base font-semibold">
+            ID: <span class="font-normal">{{ $any(task).id }}</span>
+        </p>
+        <p class="text-base font-semibold">
+            Title: <span class="font-normal">{{ $any(task).title }}</span>
+        </p>
+        <p class="text-base font-semibold">
+            Description: <span class="font-normal">{{ $any(task).description }}</span>
+        </p>
+        <p class="text-base font-semibold">
+            Status: <span class="font-normal">{{ $any(task).status }}</span>
+        </p>
+        <p class="text-base font-semibold">
+            Assigned To:
+            <span class="font-normal">
+                {{ $any(task).user?.name || ($any(task).assignedTo ? 'User ID: ' + $any(task).assignedTo : 'Unassigned')
+                }}
+            </span>
+        </p>
+        @if ($any(task).finishedAt) {
+        <p class="text-base font-semibold">
+            Finished: <span class="font-normal">{{ $any(task).finishedAt | date:'short' }}</span>
+        </p>
+        }
+    </li>
+    }
+</ul>
+}
+}

@@ -1,0 +1,168 @@
+@if (method === 0) {
+<h3 class="text-3xl text-center mb-3">Welcome!</h3>
+<p class="text-lg mb-3">Select an option above to get started.</p>
+
+<!-- USER OPERATIONS -->
+} @else if (method === "createUser") {
+<div>
+    <h3 class="text-2xl text-center mb-2">Add a user to the DB</h3>
+    <form class="flex flex-col" (ngSubmit)="onCreateUser()">
+        <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input type="text" matInput placeholder="Erik" [(ngModel)]="name" name="name" required />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input type="email" matInput placeholder="mail@example.com" [(ngModel)]="email" name="email" required />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input type="password" matInput placeholder="***" [(ngModel)]="password" name="password" required />
+        </mat-form-field>
+        <button class="w-2/5 mx-auto" matButton="filled" type="submit">Add User</button>
+    </form>
+</div>
+} @else if (method === "getUser") {
+<div>
+    <h3 class="text-2xl text-center mb-2">Get a user from the DB</h3>
+    <form class="flex flex-col" (ngSubmit)="onGetUser()">
+        <mat-form-field>
+            <mat-label>Enter the user ID</mat-label>
+            <input type="number" matInput placeholder="1" [(ngModel)]="id" name="id" required />
+        </mat-form-field>
+        <button class="w-2/5 mx-auto" matButton="filled" type="submit">Get User</button>
+    </form>
+</div>
+} @else if (method === "updateUser") {
+<div>
+    <h3 class="text-2xl text-center mb-2">Update a user in the DB</h3>
+    <form class="flex flex-col" (ngSubmit)="onUpdateUser()">
+        <mat-form-field>
+            <mat-label>User ID</mat-label>
+            <input type="number" matInput placeholder="1" [(ngModel)]="id" name="id" required />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Name (optional)</mat-label>
+            <input type="text" matInput placeholder="Erik" [(ngModel)]="name" name="name" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Email (optional)</mat-label>
+            <input type="email" matInput placeholder="mail@example.com" [(ngModel)]="email" name="email" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Password (optional)</mat-label>
+            <input type="password" matInput placeholder="***" [(ngModel)]="password" name="password" />
+        </mat-form-field>
+        <button class="w-2/5 mx-auto" matButton="filled" type="submit">Update User</button>
+    </form>
+</div>
+} @else if (method === "deleteUser") {
+<div>
+    <h3 class="text-2xl text-center mb-2">Delete a user from the DB</h3>
+    <form class="flex flex-col" (ngSubmit)="onDeleteUser()">
+        <mat-form-field>
+            <mat-label>Enter the user ID</mat-label>
+            <input type="number" matInput placeholder="1" [(ngModel)]="id" name="id" required />
+        </mat-form-field>
+        <button class="w-2/5 mx-auto" matButton="filled" type="submit">Delete User</button>
+    </form>
+</div>
+
+<!-- TASK OPERATIONS -->
+} @else if (method === "createTask") {
+<div>
+    <h3 class="text-2xl text-center mb-2">Add a task to the DB</h3>
+    <form class="flex flex-col" (ngSubmit)="onCreateTask()">
+        <mat-form-field>
+            <mat-label>Title</mat-label>
+            <input type="text" matInput placeholder="Task title" [(ngModel)]="title" name="title" required />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Description</mat-label>
+            <input type="text" matInput placeholder="Task description" [(ngModel)]="description" name="description"
+                required />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Status</mat-label>
+            <mat-select [(ngModel)]="status" name="status">
+                @for (statusOption of statusOptions; track statusOption) {
+                <mat-option [value]="statusOption">{{ statusOption }}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Assigned To (User ID - optional)</mat-label>
+            <input type="number" matInput placeholder="1" [(ngModel)]="assignedTo" name="assignedTo" />
+        </mat-form-field>
+        <button class="w-2/5 mx-auto" matButton="filled" type="submit">Add Task</button>
+    </form>
+</div>
+} @else if (method === "getTask") {
+<div>
+    <h3 class="text-2xl text-center mb-2">Get a task from the DB</h3>
+    <form class="flex flex-col" (ngSubmit)="onGetTask()">
+        <mat-form-field>
+            <mat-label>Enter the task ID</mat-label>
+            <input type="number" matInput placeholder="1" [(ngModel)]="id" name="id" required />
+        </mat-form-field>
+        <button class="w-2/5 mx-auto" matButton="filled" type="submit">Get Task</button>
+    </form>
+</div>
+} @else if (method === "updateTask") {
+<div>
+    <h3 class="text-2xl text-center mb-2">Update a task in the DB</h3>
+    <form class="flex flex-col" (ngSubmit)="onUpdateTask()">
+        <mat-form-field>
+            <mat-label>Task ID</mat-label>
+            <input type="number" matInput placeholder="1" [(ngModel)]="id" name="id" required />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Title (optional)</mat-label>
+            <input type="text" matInput placeholder="Task title" [(ngModel)]="title" name="title" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Description (optional)</mat-label>
+            <input type="text" matInput placeholder="Task description" [(ngModel)]="description" name="description" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Status (optional)</mat-label>
+            <mat-select [(ngModel)]="status" name="status">
+                @for (statusOption of statusOptions; track statusOption) {
+                <mat-option [value]="statusOption">{{ statusOption }}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Assigned To (User ID - optional)</mat-label>
+            <input type="number" matInput placeholder="1" [(ngModel)]="assignedTo" name="assignedTo" />
+        </mat-form-field>
+        <button class="w-2/5 mx-auto" matButton="filled" type="submit">Update Task</button>
+    </form>
+</div>
+} @else if (method === "deleteTask") {
+<div>
+    <h3 class="text-2xl text-center mb-2">Delete a task from the DB</h3>
+    <form class="flex flex-col" (ngSubmit)="onDeleteTask()">
+        <mat-form-field>
+            <mat-label>Enter the task ID</mat-label>
+            <input type="number" matInput placeholder="1" [(ngModel)]="id" name="id" required />
+        </mat-form-field>
+        <button class="w-2/5 mx-auto" matButton="filled" type="submit">Delete Task</button>
+    </form>
+</div>
+} @else if (method === "assignTask") {
+<div>
+    <h3 class="text-2xl text-center mb-2">Assign a task to a user</h3>
+    <form class="flex flex-col" (ngSubmit)="onAssignTask()">
+        <mat-form-field>
+            <mat-label>Task ID</mat-label>
+            <input type="number" matInput placeholder="1" [(ngModel)]="taskId" name="taskId" required />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>User ID</mat-label>
+            <input type="number" matInput placeholder="1" [(ngModel)]="userId" name="userId" required />
+        </mat-form-field>
+        <button class="w-2/5 mx-auto" matButton="filled" type="submit">Assign Task</button>
+    </form>
+</div>
+}
